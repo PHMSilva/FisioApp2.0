@@ -1,25 +1,24 @@
-import 'package:FisioApp/providers/auxiliar.dart';
-import 'package:FisioApp/providers/auxiliares.dart';
+import 'package:FisioApp/providers/atletas.dart';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class AuxiliaresForm extends StatefulWidget {
-  AuxiliaresForm();
+class AtletasForm extends StatefulWidget {
+  AtletasForm();
   @override
-  _AuxiliaresFormState createState() => _AuxiliaresFormState();
+  _AtletasFormState createState() => _AtletasFormState();
 }
 
-class _AuxiliaresFormState extends State<AuxiliaresForm> {
-  var confirmacao = false;
+class _AtletasFormState extends State<AtletasForm> {
   final nomeController = TextEditingController();
-  final emailController = TextEditingController();
+  final cpfController = TextEditingController();
 
   _submeter() {
     final nomeInserido = nomeController.text;
-    final emailInserido = emailController.text;
+    final cpfInserido = cpfController.text;
 
-    Auxiliares conjAuxiliar = Provider.of<Auxiliares>(context, listen: false);
-    conjAuxiliar.addAuxiliar(nomeInserido, emailInserido);
+    Atletas conjAtleta = Provider.of<Atletas>(context, listen: false);
+    conjAtleta.addAtleta(nomeInserido, cpfInserido);
     Navigator.of(context).pop();
   }
 
@@ -38,15 +37,15 @@ class _AuxiliaresFormState extends State<AuxiliaresForm> {
               ),
             ),
             TextField(
-              controller: emailController,
+              controller: cpfController,
               decoration: InputDecoration(
-                labelText: 'Email',
+                labelText: 'CPF',
               ),
             ),
             Row(
               children: <Widget>[
                 FlatButton(
-                    child: Text('Cadastrar Auxiliar'),
+                    child: Text('Cadastrar Atleta'),
                     textColor: Colors.teal,
                     onPressed: () => _submeter()),
               ],

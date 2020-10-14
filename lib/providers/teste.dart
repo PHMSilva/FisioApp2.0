@@ -6,5 +6,5 @@ class Teste {
   String resultado;
   bool status = false;
 
-  Teste(this.id, this.nomeTeste);
+  Teste({this.id, this.nomeTeste, this.status = false});
 }

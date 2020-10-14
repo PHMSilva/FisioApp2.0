@@ -1,4 +1,3 @@
-import 'package:FisioApp/data/BD_Auxiliares.dart';
 import 'package:FisioApp/providers/auxiliar.dart';
 import 'package:flutter/cupertino.dart';
 
@@ -31,6 +30,7 @@ class Auxiliares with ChangeNotifier {
         email: emailInserido,
       ),
     );
+    print(listaAux);
     notifyListeners();
   }
 }

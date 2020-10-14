@@ -1,34 +1,29 @@
-import 'package:FisioApp/controller/auxiliares_form.dart';
-import 'package:FisioApp/providers/auxiliares.dart';
-import 'package:FisioApp/widget/auxiliares_list.dart';
+import 'package:FisioApp/controller/atletas_form.dart';
+import 'package:FisioApp/providers/atletas.dart';
+
+import 'package:FisioApp/widget/atleta_List.dart';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class AuxiliarScreen extends StatefulWidget {
+class AtletaView extends StatefulWidget {
   @override
-  _AuxiliarScreenState createState() => _AuxiliarScreenState();
+  _AtletaViewState createState() => _AtletaViewState();
 }
 
-class _AuxiliarScreenState extends State<AuxiliarScreen> {
-  /*
-  void _submeter(String nomeInput, String emailInput) {
-    Auxiliares conjAuxiliar = Provider.of<Auxiliares>(context);
-    conjAuxiliar.addAuxiliar(nomeInput, emailInput);
-    Navigator.of(context).pop();
-  }*/
-
-  void _abrirFormularioAuxiliar(BuildContext context) {
+class _AtletaViewState extends State<AtletaView> {
+  void _abrirFormularioAtleta(BuildContext context) {
     showModalBottomSheet(
       context: context,
       builder: (_) {
-        return AuxiliaresForm();
+        return AtletasForm();
       },
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    Auxiliares auxiliares = Provider.of<Auxiliares>(context);
+    Atletas atletaList = Provider.of<Atletas>(context);
 
     return Scaffold(
       appBar: AppBar(
@@ -41,7 +36,7 @@ class _AuxiliarScreenState extends State<AuxiliarScreen> {
         backgroundColor: Colors.teal[600],
         titleSpacing: 60,
         title: Text(
-          'Auxiliares',
+          'Atletas',
           style: TextStyle(
             color: Colors.white,
             fontSize: 30,
@@ -54,14 +49,14 @@ class _AuxiliarScreenState extends State<AuxiliarScreen> {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            AuxiliaresList(auxiliares.listaAux),
+            AtletaList(atletaList.listaAtl),
             FlatButton(
               child: Icon(
                 Icons.add_circle,
                 color: Colors.tealAccent[700],
                 size: 90.0,
               ),
-              onPressed: () => _abrirFormularioAuxiliar(context),
+              onPressed: () => _abrirFormularioAtleta(context),
             ),
           ],
         ),
