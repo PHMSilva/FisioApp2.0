@@ -1,4 +1,3 @@
-import 'package:FisioApp/providers/auxiliar.dart';
 import 'package:FisioApp/providers/auxiliares.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';

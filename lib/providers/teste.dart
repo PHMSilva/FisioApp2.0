@@ -1,5 +1,3 @@
-import 'package:flutter/cupertino.dart';
-
 class Teste {
   int id;
   String nomeTeste;

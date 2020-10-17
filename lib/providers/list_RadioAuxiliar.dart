@@ -5,8 +5,8 @@ import 'package:flutter/cupertino.dart';
 class ListRadioAuxiliar with ChangeNotifier {
   List<AuxiliarRadio> listAuxRadio = [];
   var count = 0;
-
   var selecionado;
+
   void receberListaAuxiliar(List<Auxiliar> listAux) {
     if (count == 0) {
       listAux.forEach(
@@ -35,5 +35,16 @@ class ListRadioAuxiliar with ChangeNotifier {
   void atualizarItemAuxiliar(AuxiliarRadio item) {
     item.selecionado = !item.selecionado;
     notifyListeners();
+  }
+
+  AuxiliarRadio retortarAuxiliarSelecionado() {
+    AuxiliarRadio retornado;
+    listAuxRadio.forEach((element) {
+      if (element.idAux == selecionado) {
+        retornado = element;
+        selecionado = 0;
+      }
+    });
+    return retornado;
   }
 }

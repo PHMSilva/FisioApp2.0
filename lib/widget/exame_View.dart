@@ -56,12 +56,14 @@ class ExameView extends StatelessWidget {
                   SizedBox(
                     height: 10,
                   ),
-                  Text(
-                    ' Nome do auxiliar: ${elFicha.nomeAuxiliar}',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 16,
-                      color: Colors.teal[700],
+                  Container(
+                    child: Text(
+                      ' Nome do auxiliar: ${elFicha.nomeAuxiliar}',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 16,
+                        color: Colors.teal[700],
+                      ),
                     ),
                   ),
                   SizedBox(

@@ -52,4 +52,15 @@ class Testes with ChangeNotifier {
       }
     });
   }
+
+  List<Teste> retornarSelecionados() {
+    List<Teste> testesSelecionados = [];
+    listaTest.forEach((element) {
+      if (element.status) {
+        testesSelecionados.add(element);
+        element.status = !element.status;
+      }
+    });
+    return testesSelecionados;
+  }
 }

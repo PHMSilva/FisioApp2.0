@@ -18,6 +18,21 @@ class Atletas with ChangeNotifier {
       nomeAtleta: 'Maria Clara',
       cpf: '12922200-11',
     ),
+    Atleta(
+      id: 4,
+      nomeAtleta: 'Antonio',
+      cpf: '12922200-11',
+    ),
+    Atleta(
+      id: 5,
+      nomeAtleta: 'Denise',
+      cpf: '12922200-11',
+    ),
+    Atleta(
+      id: 6,
+      nomeAtleta: 'Aline',
+      cpf: '12922200-11',
+    ),
   ];
 
   void addAtleta(String nomeEscolhido, String cpfEscolhido) {

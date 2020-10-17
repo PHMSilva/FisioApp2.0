@@ -1,11 +1,13 @@
 import 'package:FisioApp/controller/form_Atleta.dart';
 import 'package:FisioApp/controller/form_Auxiliar.dart';
 import 'package:FisioApp/controller/form_Teste.dart';
-import 'package:FisioApp/providers/atleta.dart';
+
 import 'package:FisioApp/providers/atletas.dart';
 import 'package:FisioApp/providers/auxiliares.dart';
+import 'package:FisioApp/providers/fichas.dart';
 import 'package:FisioApp/providers/list_CheckBoxAtleta.dart';
 import 'package:FisioApp/providers/list_RadioAuxiliar.dart';
+import 'package:FisioApp/providers/testes.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -27,8 +29,18 @@ class _FichasFormState extends State<FichasForm> {
         Provider.of<ListCheckBoxAtleta>(context);
     listCheckBoxAtleta.receberListaAtleta(atletas.listaAtl);
 
+    Fichas fichas = Provider.of<Fichas>(context);
+
+    Testes testes = Provider.of<Testes>(context);
+
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back_ios),
+          onPressed: () => {
+            Navigator.pop(context),
+          },
+        ),
         title: Text(
           'Cadastro de Fichas',
           style: TextStyle(
@@ -36,6 +48,8 @@ class _FichasFormState extends State<FichasForm> {
             color: Colors.white,
           ),
         ),
+        backgroundColor: Colors.teal[600],
+        titleSpacing: 60,
       ),
       body: Stepper(
         type: StepperType.horizontal,
@@ -53,6 +67,12 @@ class _FichasFormState extends State<FichasForm> {
             } else {
               //Logic to check if everything is completed
               print('Completed, check fields.');
+              fichas.addFichas(
+                listRadio.retortarAuxiliarSelecionado(),
+                listCheckBoxAtleta.retornaAtletasSelecionados(),
+                testes.retornarSelecionados(),
+              );
+              Navigator.of(context).pop();
             }
           });
         },

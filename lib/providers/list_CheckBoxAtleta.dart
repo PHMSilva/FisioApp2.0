@@ -33,4 +33,18 @@ class ListCheckBoxAtleta with ChangeNotifier {
       },
     );
   }
+
+  List<AtletaCheckBox> retornaAtletasSelecionados() {
+    List<AtletaCheckBox> atletasSelecionados = [];
+
+    listAtlCheckBox.forEach(
+      (element) {
+        if (element.selecionado) {
+          atletasSelecionados.add(element);
+          element.selecionado = !element.selecionado;
+        }
+      },
+    );
+    return atletasSelecionados;
+  }
 }

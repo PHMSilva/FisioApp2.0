@@ -1,5 +1,4 @@
 import 'package:FisioApp/providers/ficha.dart';
-import 'package:flutter/cupertino.dart';
 
 List<Ficha> listaFichas = [
   Ficha(

@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 class Ficha with ChangeNotifier {
   int id;
   String nomeAuxiliar;
+  //List<Atleta> nomeAtleta;
   String nomeAtleta;
   List<Teste> testes;
   bool pendente = false;
