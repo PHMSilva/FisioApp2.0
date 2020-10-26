@@ -40,17 +40,9 @@ class Testes with ChangeNotifier {
       nomeTeste: 'Teste09',
     ),
   ];
-
+  // Testes();
   void atualizarStatus(Teste testeSelecionado) {
     testeSelecionado.status = !testeSelecionado.status;
-  }
-
-  void mostrarSelecionados() {
-    listaTest.forEach((element) {
-      if (element.status) {
-        print(element.nomeTeste);
-      }
-    });
   }
 
   List<Teste> retornarSelecionados() {

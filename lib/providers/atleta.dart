@@ -1,11 +1,13 @@
 class Atleta {
-  int id;
-  String nomeAtleta;
+  String idServer;
+  String nome;
+  bool selecionado;
   String cpf;
 
   Atleta({
-    this.id,
-    this.nomeAtleta,
+    this.idServer,
+    this.nome,
+    this.selecionado = false,
     this.cpf,
   });
 }

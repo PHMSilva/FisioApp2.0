@@ -24,7 +24,7 @@ class ExameView extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
-                      Text(
+                      /*   Text(
                         ' ID : ${elFicha.id.toString()}',
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
@@ -35,6 +35,7 @@ class ExameView extends StatelessWidget {
                       SizedBox(
                         width: 40,
                       ),
+                      */
                       Container(
                         child: Row(
                           children: <Widget>[

@@ -1,13 +1,13 @@
 import 'package:flutter/cupertino.dart';
 
 class Auxiliar {
-  final int id;
-  final String nome;
-  final String email;
+  String idServer;
+  String nome;
+  String email;
 
   Auxiliar({
-    @required this.id,
-    @required this.nome,
-    @required this.email,
+    this.idServer,
+    this.nome,
+    this.email,
   });
 }

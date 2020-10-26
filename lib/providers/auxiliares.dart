@@ -1,10 +1,15 @@
+import 'dart:convert';
+
 import 'package:FisioApp/providers/auxiliar.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:http/http.dart' as http;
 
 class Auxiliares with ChangeNotifier {
-  //List<Auxiliar> listaAux = auxiliaresBD;
+  Auxiliar selecionado;
+  String chaveSelecionada;
 
-  List<Auxiliar> listaAux = [
+  final String baseUrl = 'https://flutter-testereq.firebaseio.com/auxiliares';
+  /* List<Auxiliar> listaAux = [
     Auxiliar(
       id: 1,
       nome: 'Isadora',
@@ -21,16 +26,107 @@ class Auxiliares with ChangeNotifier {
       email: 'roberto92@gmail.com',
     ),
   ];
-
+*/
+/*
   void addAuxiliar(String nomeInserido, String emailInserido) {
+    const url = 'https://flutter-testereq.firebaseio.com/auxiliares.json';
+    http
+        .post(
+      url,
+      body: json.encode({
+        // 'id': novoAux.id,
+        'nome': nomeInserido,
+        'email': emailInserido,
+      }),
+    )
+        .then((response) {
+      //var idBD = json.decode(response.body)['name']; usado para gerar id de elementos, caso necessario
+
+      listaAux.add(
+        new Auxiliar(
+          id: listaAux.length + 1,
+          nome: nomeInserido,
+          email: emailInserido,
+        ),
+      );
+      notifyListeners();
+    });
+  }
+  */
+
+  List<Auxiliar> listaAux = [];
+  String _token;
+  String _userId;
+  Auxiliares(this._token, this._userId, this.listaAux);
+
+  Future<void> loadAuxiliares() async {
+    final response = await http.get('$baseUrl/$_userId.json?auth=$_token');
+    Map<String, dynamic> data =
+        json.decode(response.body); // chega o json entao faz um decode dele
+    listaAux.clear();
+    if (data != null) {
+      data.forEach((dataId, dataBody) {
+        listaAux.add(
+          Auxiliar(
+            idServer: dataId,
+            nome: dataBody['nome'],
+            email: dataBody['email'],
+          ),
+        );
+      });
+      notifyListeners();
+    }
+    //print(json.decode(response.body));
+
+    return Future.value();
+  }
+
+  Future<void> addAuxiliar(String nomeInserido, String emailInserido) async {
+    final response = await http.post(
+      '$baseUrl/$_userId.json?auth=$_token',
+      body: json.encode({
+        // 'id': novoAux.id,
+        'nome': nomeInserido,
+        'email': emailInserido,
+      }),
+    );
+
     listaAux.add(
-      Auxiliar(
-        id: listaAux.length,
+      new Auxiliar(
+        idServer: json.decode(response.body)['name'],
         nome: nomeInserido,
         email: emailInserido,
       ),
     );
-    print(listaAux);
     notifyListeners();
+  }
+
+  Future<void> atualizarAuxiliar() async {
+    final index = 1;
+
+    if (index == null) {
+      return;
+    }
+    final Auxiliar escolhido =
+        //listaAux.singleWhere((element) => element.id == index);
+        listaAux[0];
+    print(escolhido.nome);
+    print('espere');
+    escolhido.nome = 'hinata';
+    escolhido.email = 'gostosadonaruto';
+    await http.patch(
+      "$baseUrl/${escolhido.idServer}.json",
+      body: json.encode(
+        {
+          'nome': escolhido.nome,
+          'email': escolhido.email,
+        },
+      ),
+    );
+  }
+
+  void atualizarSelecionado() {
+    selecionado =
+        listaAux.singleWhere((element) => element.idServer == chaveSelecionada);
   }
 }

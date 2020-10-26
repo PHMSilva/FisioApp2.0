@@ -16,7 +16,7 @@ class _AuxiliarScreenState extends State<AuxiliarScreen> {
     conjAuxiliar.addAuxiliar(nomeInput, emailInput);
     Navigator.of(context).pop();
   }*/
-
+  bool _isloading = true;
   void _abrirFormularioAuxiliar(BuildContext context) {
     showModalBottomSheet(
       context: context,
@@ -24,6 +24,18 @@ class _AuxiliarScreenState extends State<AuxiliarScreen> {
         return AuxiliaresForm();
       },
     );
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+
+    Provider.of<Auxiliares>(context, listen: false).loadAuxiliares().then((_) {
+      setState(() {
+        _isloading = false;
+      });
+    });
   }
 
   @override
@@ -49,22 +61,36 @@ class _AuxiliarScreenState extends State<AuxiliarScreen> {
         ),
       ),
       body: Container(
+        alignment: Alignment.center,
         color: Colors.teal[50],
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            AuxiliaresList(auxiliares.listaAux),
-            FlatButton(
-              child: Icon(
-                Icons.add_circle,
-                color: Colors.tealAccent[700],
-                size: 90.0,
+        child: _isloading
+            ? Center(child: CircularProgressIndicator(),) 
+            : Column(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  AuxiliaresList(auxiliares.listaAux),
+                  FlatButton(
+                    child: Icon(
+                      Icons.add_circle,
+                      color: Colors.tealAccent[700],
+                      size: 50.0,
+                    ),
+                    onPressed: () => _abrirFormularioAuxiliar(context),
+                  ),
+                  FlatButton(
+                    child: Icon(
+                      Icons.update,
+                      color: Colors.tealAccent[700],
+                      size: 50.0,
+                    ),
+                    onPressed: () {
+                      auxiliares.atualizarAuxiliar();
+                      Navigator.of(context).pop();
+                    },
+                  ),
+                ],
               ),
-              onPressed: () => _abrirFormularioAuxiliar(context),
-            ),
-          ],
-        ),
       ),
     );
   }

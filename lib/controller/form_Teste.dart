@@ -39,7 +39,6 @@ class _FormTesteState extends State<FormTeste> {
                         listTeste.status = value;
                       },
                     );
-                    testes.mostrarSelecionados();
                   },
                 ),
               ),

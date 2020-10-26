@@ -12,6 +12,7 @@ class AtletaView extends StatefulWidget {
 }
 
 class _AtletaViewState extends State<AtletaView> {
+  bool _isLoading = true;
   void _abrirFormularioAtleta(BuildContext context) {
     showModalBottomSheet(
       context: context,
@@ -19,6 +20,16 @@ class _AtletaViewState extends State<AtletaView> {
         return AtletasForm();
       },
     );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    Provider.of<Atletas>(context, listen: false).loadAtletas().then((_) {
+      setState(() {
+        _isLoading = false;
+      });
+    });
   }
 
   @override
@@ -44,22 +55,25 @@ class _AtletaViewState extends State<AtletaView> {
         ),
       ),
       body: Container(
+        alignment: Alignment.center,
         color: Colors.teal[50],
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            AtletaList(atletaList.listaAtl),
-            FlatButton(
-              child: Icon(
-                Icons.add_circle,
-                color: Colors.tealAccent[700],
-                size: 90.0,
+        child: _isLoading
+            ? CircularProgressIndicator()
+            : Column(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  AtletaList(atletaList.listaAtl),
+                  FlatButton(
+                    child: Icon(
+                      Icons.add_circle,
+                      color: Colors.tealAccent[700],
+                      size: 90.0,
+                    ),
+                    onPressed: () => _abrirFormularioAtleta(context),
+                  ),
+                ],
               ),
-              onPressed: () => _abrirFormularioAtleta(context),
-            ),
-          ],
-        ),
       ),
     );
   }

@@ -1,4 +1,4 @@
-import 'package:FisioApp/providers/list_RadioAuxiliar.dart';
+import 'package:FisioApp/providers/auxiliares.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -10,13 +10,13 @@ class FormAuxiliar extends StatefulWidget {
 class _FormAuxiliarState extends State<FormAuxiliar> {
   @override
   Widget build(BuildContext context) {
-    ListRadioAuxiliar listRadio = Provider.of<ListRadioAuxiliar>(context);
-
+    //ListRadioAuxiliar listRadio = Provider.of<ListRadioAuxiliar>(context);
+    Auxiliares listRadio = Provider.of<Auxiliares>(context);
     //List<AuxiliarRadio> novo = retornoList(auxiliares);
     //print(novo[0].nomeAux);
 
     //listRadio.receberListaAuxiliar(auxiliares.listaAux);
-    print(listRadio.listAuxRadio[2].selecionado);
+    //print(listRadio.listAuxRadio[2].selecionado);
     return Container(
       height: 400,
       padding: EdgeInsets.only(
@@ -26,9 +26,9 @@ class _FormAuxiliarState extends State<FormAuxiliar> {
       // child: ListView.builder(itemBuilder: null),
       child: Center(
         child: ListView.builder(
-          itemCount: listRadio.listAuxRadio.length,
+          itemCount: listRadio.listaAux.length,
           itemBuilder: (ctx, index) {
-            var radioAux = listRadio.listAuxRadio[index];
+            var radioAux = listRadio.listaAux[index];
             return Column(
               children: <Widget>[
                 Container(
@@ -39,12 +39,13 @@ class _FormAuxiliarState extends State<FormAuxiliar> {
                     ),
                   ),
                   child: RadioListTile(
-                    title: Text('${radioAux.nomeAux}'),
-                    value: radioAux.idAux,
-                    groupValue: listRadio.selecionado,
+                    title: Text('${radioAux.nome}'),
+                    value: radioAux.idServer,
+                    groupValue: listRadio.chaveSelecionada,
                     onChanged: (value) {
                       setState(() {
-                        listRadio.selecionado = value;
+                        listRadio.chaveSelecionada = value;
+                        listRadio.atualizarSelecionado();
                       });
                     },
                   ),
