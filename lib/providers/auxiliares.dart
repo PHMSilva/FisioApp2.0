@@ -9,50 +9,6 @@ class Auxiliares with ChangeNotifier {
   String chaveSelecionada;
 
   final String baseUrl = 'https://flutter-testereq.firebaseio.com/auxiliares';
-  /* List<Auxiliar> listaAux = [
-    Auxiliar(
-      id: 1,
-      nome: 'Isadora',
-      email: 'isadora33@gmail.com',
-    ),
-    Auxiliar(
-      id: 2,
-      nome: 'José',
-      email: 'jose93@gmail.com',
-    ),
-    Auxiliar(
-      id: 3,
-      nome: 'Roberto',
-      email: 'roberto92@gmail.com',
-    ),
-  ];
-*/
-/*
-  void addAuxiliar(String nomeInserido, String emailInserido) {
-    const url = 'https://flutter-testereq.firebaseio.com/auxiliares.json';
-    http
-        .post(
-      url,
-      body: json.encode({
-        // 'id': novoAux.id,
-        'nome': nomeInserido,
-        'email': emailInserido,
-      }),
-    )
-        .then((response) {
-      //var idBD = json.decode(response.body)['name']; usado para gerar id de elementos, caso necessario
-
-      listaAux.add(
-        new Auxiliar(
-          id: listaAux.length + 1,
-          nome: nomeInserido,
-          email: emailInserido,
-        ),
-      );
-      notifyListeners();
-    });
-  }
-  */
 
   List<Auxiliar> listaAux = [];
   String _token;

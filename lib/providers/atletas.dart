@@ -8,40 +8,6 @@ class Atletas with ChangeNotifier {
   final String baseUrl = 'https://flutter-testereq.firebaseio.com/atletas';
 
   List<Atleta> listaAtl = [];
-  /*
-  List<Atleta> listaAtl = [
-    Atleta(
-      id: 1,
-      nomeAtleta: 'Fabio',
-      cpf: '12922200-11',
-    ),
-    Atleta(
-      id: 2,
-      nomeAtleta: 'Agusto',
-      cpf: '12922200-11',
-    ),
-    Atleta(
-      id: 3,
-      nomeAtleta: 'Maria Clara',
-      cpf: '12922200-11',
-    ),
-    Atleta(
-      id: 4,
-      nomeAtleta: 'Antonio',
-      cpf: '12922200-11',
-    ),
-    Atleta(
-      id: 5,
-      nomeAtleta: 'Denise',
-      cpf: '12922200-11',
-    ),
-    Atleta(
-      id: 6,
-      nomeAtleta: 'Aline',
-      cpf: '12922200-11',
-    ),
-  ];
-*/
 
   String _token;
   String _userId;
