@@ -45,7 +45,7 @@ class _FormAuxiliarState extends State<FormAuxiliar> {
                     onChanged: (value) {
                       setState(() {
                         listRadio.chaveSelecionada = value;
-                        listRadio.atualizarSelecionado();
+                        //listRadio.atualizarSelecionado();
                       });
                     },
                   ),

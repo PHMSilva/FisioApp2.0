@@ -57,29 +57,7 @@ class Auxiliares with ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> atualizarAuxiliar() async {
-    final index = 1;
-
-    if (index == null) {
-      return;
-    }
-    final Auxiliar escolhido =
-        //listaAux.singleWhere((element) => element.id == index);
-        listaAux[0];
-    print(escolhido.nome);
-    print('espere');
-    escolhido.nome = 'hinata';
-    escolhido.email = 'gostosadonaruto';
-    await http.patch(
-      "$baseUrl/${escolhido.idServer}.json",
-      body: json.encode(
-        {
-          'nome': escolhido.nome,
-          'email': escolhido.email,
-        },
-      ),
-    );
-  }
+  
 
   void atualizarSelecionado() {
     selecionado =

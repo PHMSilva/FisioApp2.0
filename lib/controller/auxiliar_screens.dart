@@ -85,7 +85,7 @@ class _AuxiliarScreenState extends State<AuxiliarScreen> {
                       size: 50.0,
                     ),
                     onPressed: () {
-                      auxiliares.atualizarAuxiliar();
+                      //auxiliares.atualizarAuxiliar();
                       Navigator.of(context).pop();
                     },
                   ),
