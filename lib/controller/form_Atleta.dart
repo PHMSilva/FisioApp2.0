@@ -11,8 +11,7 @@ class FormAtleta extends StatefulWidget {
 class _FormAtletaState extends State<FormAtleta> {
   @override
   Widget build(BuildContext context) {
-    //ListCheckBoxAtleta listAtlCkeck = Provider.of<ListCheckBoxAtleta>(context);
-    Atletas listAtleta = Provider.of<Atletas>(context);
+    Atletas listAtleta = Provider.of<Atletas>(context, listen: false);
     return Container(
       height: 400,
       padding: EdgeInsets.only(
@@ -31,6 +30,7 @@ class _FormAtletaState extends State<FormAtleta> {
                     color: Colors.teal[700],
                     width: 2,
                   ),
+                  borderRadius: BorderRadius.circular(20),
                 ),
                 child: CheckboxListTile(
                   title: Text('${atlCheckBox.nome}'),
@@ -38,6 +38,8 @@ class _FormAtletaState extends State<FormAtleta> {
                   onChanged: (bool value) {
                     setState(
                       () {
+                        print(atlCheckBox.nome);
+                        print(value);
                         atlCheckBox.selecionado = value;
                       },
                     );

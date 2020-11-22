@@ -1,53 +1,39 @@
+import 'dart:convert';
+
 import 'package:FisioApp/providers/teste.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:http/http.dart' as http;
 
 class Testes with ChangeNotifier {
-  List<Teste> listaTest = [
-    Teste(
-      id: 1,
-      nomeTeste: 'Teste01',
-    ),
-    Teste(
-      id: 2,
-      nomeTeste: 'Teste02',
-    ),
-    Teste(
-      id: 3,
-      nomeTeste: 'Teste03',
-    ),
-    Teste(
-      id: 4,
-      nomeTeste: 'Teste04',
-    ),
-    Teste(
-      id: 5,
-      nomeTeste: 'Teste05',
-    ),
-    Teste(
-      id: 6,
-      nomeTeste: 'Teste06',
-    ),
-    Teste(
-      id: 7,
-      nomeTeste: 'Teste07',
-    ),
-    Teste(
-      id: 8,
-      nomeTeste: 'Teste08',
-    ),
-    Teste(
-      id: 9,
-      nomeTeste: 'Teste09',
-    ),
-  ];
-  // Testes();
+  List<Teste> listaTesteBD = [];
   void atualizarStatus(Teste testeSelecionado) {
     testeSelecionado.status = !testeSelecionado.status;
   }
 
+  Future<void> loadTestes() async {
+    final url =
+        'http://fisioterapiaapp1.azurewebsites.net/Exames/ExerciciosAll';
+    final response = await http.get(url);
+
+    List<dynamic> data = json.decode(response.body);
+
+    if (data != null) {
+      listaTesteBD.clear();
+      data.forEach((element) {
+        listaTesteBD.add(
+          new Teste(
+            id: element['id'],
+            nomeTeste: element['nome'],
+          ),
+        );
+      });
+    }
+    return Future.value();
+  }
+
   List<Teste> retornarSelecionados() {
     List<Teste> testesSelecionados = [];
-    listaTest.forEach((element) {
+    listaTesteBD.forEach((element) {
       if (element.status) {
         testesSelecionados.add(element);
         element.status = !element.status;

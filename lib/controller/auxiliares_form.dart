@@ -18,10 +18,6 @@ class _AuxiliaresFormState extends State<AuxiliaresForm> {
     final emailInserido = emailController.text;
 
     Auxiliares conjAuxiliar = Provider.of<Auxiliares>(context, listen: false);
-    /*
-    conjAuxiliar.addAuxiliar(nomeInserido, emailInserido);
-    Navigator.of(context).pop();
-    */
     conjAuxiliar.addAuxiliar(nomeInserido, emailInserido);
     Navigator.of(context).pop();
   }

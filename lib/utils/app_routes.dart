@@ -6,4 +6,5 @@ class AppRoutes {
   static const ATLETAS = '/tela-atletas';
   static const CONFIGURACOES = '/tela-configuracoes';
   static const FICHAS_FORMULARIO = '/tela-formulario-ficha';
+  static const ATLETAS_FORM = '/atleta-form';
 }

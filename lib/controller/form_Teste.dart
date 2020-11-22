@@ -10,7 +10,7 @@ class FormTeste extends StatefulWidget {
 class _FormTesteState extends State<FormTeste> {
   @override
   Widget build(BuildContext context) {
-    Testes testes = Provider.of<Testes>(context);
+    Testes testes = Provider.of<Testes>(context, listen: false);
     return Container(
       height: 400,
       padding: EdgeInsets.only(
@@ -18,9 +18,9 @@ class _FormTesteState extends State<FormTeste> {
         left: 20,
       ),
       child: ListView.builder(
-        itemCount: testes.listaTest.length,
+        itemCount: testes.listaTesteBD.length,
         itemBuilder: (ctx, index) {
-          var listTeste = testes.listaTest[index];
+          var listTeste = testes.listaTesteBD[index];
           return Column(
             children: <Widget>[
               Container(
@@ -29,6 +29,7 @@ class _FormTesteState extends State<FormTeste> {
                     color: Colors.teal[700],
                     width: 2,
                   ),
+                  borderRadius: BorderRadius.circular(20),
                 ),
                 child: CheckboxListTile(
                   title: Text('${listTeste.nomeTeste}'),

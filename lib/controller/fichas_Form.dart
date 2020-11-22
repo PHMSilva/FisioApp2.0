@@ -1,9 +1,12 @@
 import 'package:FisioApp/controller/form_Atleta.dart';
 import 'package:FisioApp/controller/form_Auxiliar.dart';
 import 'package:FisioApp/controller/form_Teste.dart';
+import 'package:FisioApp/providers/atleta.dart';
 import 'package:FisioApp/providers/atletas.dart';
+import 'package:FisioApp/providers/auxiliar.dart';
 import 'package:FisioApp/providers/auxiliares.dart';
 import 'package:FisioApp/providers/fichas.dart';
+import 'package:FisioApp/providers/teste.dart';
 import 'package:FisioApp/providers/testes.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -42,7 +45,7 @@ class _FichasFormState extends State<FichasForm> {
           ),
         ),
         backgroundColor: Colors.teal[600],
-        titleSpacing: 60,
+        centerTitle: true,
       ),
       body: Stepper(
         type: StepperType.horizontal,
@@ -59,11 +62,14 @@ class _FichasFormState extends State<FichasForm> {
               this._currentStep = this._currentStep + 1;
             } else {
               //Logic to check if everything is completed
-              print('Completed, check fields.');
+              Auxiliar selecionado = auxiliares.selecionado;
+              List<Atleta> atletasSelecionados =
+                  atletas.retornaAtletasSelecionados();
+              List<Teste> testesSelecionados = testes.retornarSelecionados();
               fichas.addFichas(
-                auxiliares.selecionado,
-                atletas.retornaAtletasSelecionados(),
-                testes.retornarSelecionados(),
+                selecionado,
+                atletasSelecionados,
+                testesSelecionados,
               );
               Navigator.of(context).pop();
             }
@@ -75,6 +81,7 @@ class _FichasFormState extends State<FichasForm> {
               this._currentStep = this._currentStep - 1;
             } else {
               this._currentStep = 0;
+              Navigator.of(context).pop();
             }
           });
         },

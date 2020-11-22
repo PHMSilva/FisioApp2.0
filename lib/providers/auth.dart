@@ -6,10 +6,20 @@ import 'package:http/http.dart' as http;
 class Auth with ChangeNotifier {
   String _token;
   String _userId;
-  DateTime _expiryDate;
+  String confirmacaoMensagem;
+  String _nomeUsuario;
+  String _codVinculo;
+
+  String get nomeUsuario {
+    return isAuth ? _nomeUsuario : null;
+  }
 
   bool get isAuth {
     return token != null;
+  }
+
+  String get codVinculo {
+    return isAuth ? _codVinculo : null;
   }
 
   String get userId {
@@ -17,53 +27,78 @@ class Auth with ChangeNotifier {
   }
 
   String get token {
-    if (_token != null &&
-        _expiryDate != null &&
-        _expiryDate.isAfter(DateTime.now())) {
+    if (_token != null) {
       return _token;
     } else {
       return null;
     }
   }
 
-  Future<void> _authenticate(
-      String email, String senha, String urlSegment) async {
-    final url =
-        'https://identitytoolkit.googleapis.com/v1/accounts:$urlSegment?key=AIzaSyAWhrytYUuvVK9_JhzYZlkxyZHRlu1spzg';
-    final response = await http.post(
+  Future<void> signup(
+      String nome, String email, String senha, String confirmacao) async {
+    final url = 'https://fisioterapiaapp1.azurewebsites.net/Usuario/register';
+
+    var response = await http.post(
       url,
-      body: json.encode({
-        'email': email,
-        'password': senha,
-        //'type': 'fisioterapeuta',
-        'returnSecureToken': true,
-      }),
+      headers: {
+        "Accept": "application/json",
+        "content-type": "application/json"
+      },
+      body: json.encode(
+        {
+          "Titulo": "Mr",
+          "Nome": nome,
+          "Email": email,
+          "Senha": senha,
+          "ConfirmaSenha": confirmacao,
+          "AceitoTermos": true,
+        },
+      ),
     );
+
     final responseBody = json.decode(response.body);
     if (responseBody['error'] != null) {
       throw ExcecaoAcesso(responseBody['error']['message']);
     } else {
-      print(responseBody); // imprime oque esta no response
-      _token = responseBody['idToken'];
-      _userId = responseBody['localId'];
-      _expiryDate = DateTime.now().add(
-        Duration(
-          seconds: int.parse(
-              responseBody['expiresIn']), // a soma da a data de expiracao
-        ),
-      );
-      print('deu1');
       notifyListeners();
     }
-    print('deu2');
-    return Future.value();
-  }
 
-  Future<void> signup(String email, String senha) async {
-    return _authenticate(email, senha, 'signUp');
+    confirmacaoMensagem = responseBody['message'];
   }
 
   Future<void> login(String email, String senha) async {
-    return _authenticate(email, senha, 'signInWithPassword');
+    final url = 'https://fisioterapiaapp1.azurewebsites.net/Usuario/login';
+
+    var response = await http.post(
+      url,
+      headers: {
+        "Accept": "application/json",
+        "content-type": "application/json"
+      },
+      body: json.encode({
+        "Email": email,
+        "Senha": senha,
+      }),
+    );
+
+    final responseBody = json.decode(response.body);
+    if (responseBody['message'] != null) {
+      print(' dentro ${responseBody['message']}');
+      throw ExcecaoAcesso(responseBody['error']['message']);
+    } else {
+      _nomeUsuario = responseBody['nome'];
+      _userId = responseBody['id'].toString();
+      _token = responseBody['jwtToken'];
+      _codVinculo = responseBody['codvinculo'];
+
+      notifyListeners();
+    }
+
+    return Future.value();
+  }
+
+  logout() {
+    _token = null;
+    _userId = null;
   }
 }

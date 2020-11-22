@@ -1,7 +1,9 @@
 import 'package:FisioApp/controller/atleta_view.dart';
+import 'package:FisioApp/controller/atletas_form.dart';
 import 'package:FisioApp/controller/auxiliar_screens.dart';
+import 'package:FisioApp/controller/contaUsuario.dart';
 import 'package:FisioApp/controller/fichas_Form.dart';
-import 'package:FisioApp/controller/fichas_view.dart';
+import 'package:FisioApp/view/fichas_view.dart';
 import 'package:FisioApp/providers/atletas.dart';
 import 'package:FisioApp/providers/auth.dart';
 import 'package:FisioApp/providers/auxiliares.dart';
@@ -28,6 +30,15 @@ class FisioApp extends StatelessWidget {
         ChangeNotifierProvider(
           create: (_) => new Auth(),
         ),
+        ChangeNotifierProxyProvider<Auth, ContaUsuario>(
+          create: (_) => new ContaUsuario(null, null, null, null),
+          update: (ctx, auth, previousConta) => new ContaUsuario(
+            auth.token,
+            auth.userId,
+            auth.nomeUsuario,
+            auth.codVinculo,
+          ),
+        ),
         ChangeNotifierProxyProvider<Auth, Fichas>(
           create: (_) => new Fichas(null, null, []),
           update: (ctx, auth, previousFichas) => new Fichas(
@@ -52,6 +63,12 @@ class FisioApp extends StatelessWidget {
             previousAtletas.listaAtl,
           ),
         ),
+
+        /*
+        ChangeNotifierProvider(create: (_) => new Fichas()),
+        ChangeNotifierProvider(create: (_) => new Auxiliares()),
+        ChangeNotifierProvider(create: (_) => new Atletas()),
+        */
         ChangeNotifierProvider(
           create: (_) => new Testes(),
         ),
@@ -65,6 +82,7 @@ class FisioApp extends StatelessWidget {
           AppRoutes.FICHAS: (ctx) => FichasView(),
           AppRoutes.ATLETAS: (ctx) => AtletaView(),
           AppRoutes.FICHAS_FORMULARIO: (ctx) => FichasForm(),
+          AppRoutes.ATLETAS_FORM: (ctx) => AtletasForm(),
         },
         debugShowCheckedModeBanner: false,
       ),

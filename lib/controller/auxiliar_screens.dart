@@ -10,21 +10,7 @@ class AuxiliarScreen extends StatefulWidget {
 }
 
 class _AuxiliarScreenState extends State<AuxiliarScreen> {
-  /*
-  void _submeter(String nomeInput, String emailInput) {
-    Auxiliares conjAuxiliar = Provider.of<Auxiliares>(context);
-    conjAuxiliar.addAuxiliar(nomeInput, emailInput);
-    Navigator.of(context).pop();
-  }*/
   bool _isloading = true;
-  void _abrirFormularioAuxiliar(BuildContext context) {
-    showModalBottomSheet(
-      context: context,
-      builder: (_) {
-        return AuxiliaresForm();
-      },
-    );
-  }
 
   @override
   void initState() {
@@ -61,34 +47,18 @@ class _AuxiliarScreenState extends State<AuxiliarScreen> {
         ),
       ),
       body: Container(
+        height: MediaQuery.of(context).size.height * 0.8,
         alignment: Alignment.center,
-        color: Colors.teal[50],
+        color: Colors.white,
         child: _isloading
-            ? Center(child: CircularProgressIndicator(),) 
+            ? Center(
+                child: CircularProgressIndicator(),
+              )
             : Column(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
                   AuxiliaresList(auxiliares.listaAux),
-                  FlatButton(
-                    child: Icon(
-                      Icons.add_circle,
-                      color: Colors.tealAccent[700],
-                      size: 50.0,
-                    ),
-                    onPressed: () => _abrirFormularioAuxiliar(context),
-                  ),
-                  FlatButton(
-                    child: Icon(
-                      Icons.update,
-                      color: Colors.tealAccent[700],
-                      size: 50.0,
-                    ),
-                    onPressed: () {
-                      //auxiliares.atualizarAuxiliar();
-                      Navigator.of(context).pop();
-                    },
-                  ),
                 ],
               ),
       ),

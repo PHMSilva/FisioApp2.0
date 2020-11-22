@@ -1,6 +1,7 @@
 import 'package:FisioApp/providers/atletas.dart';
 import 'package:FisioApp/providers/auxiliares.dart';
 import 'package:FisioApp/providers/fichas.dart';
+import 'package:FisioApp/providers/testes.dart';
 
 import 'package:FisioApp/utils/app_routes.dart';
 import 'package:FisioApp/widget/fichas_List.dart';
@@ -15,9 +16,17 @@ class FichasView extends StatefulWidget {
 
 class _FichasViewState extends State<FichasView> {
   bool _isLoading = true;
+
   @override
   void initState() {
     super.initState();
+
+    Provider.of<Testes>(context, listen: false).loadTestes().then((_) {
+      setState(() {
+        //_isLoading = false;
+      });
+    });
+
     Provider.of<Fichas>(context, listen: false).loadFichas().then((_) {
       setState(() {
         //_isLoading = false;
@@ -33,8 +42,6 @@ class _FichasViewState extends State<FichasView> {
         _isLoading = false;
       });
     });
-    //Provider.of<Atletas>(context, listen: false).loadAtletas();
-    //Provider.of<Auxiliares>(context, listen: false).loadAuxiliares();
   }
 
   @override
@@ -42,15 +49,8 @@ class _FichasViewState extends State<FichasView> {
     Fichas listFicha = Provider.of<Fichas>(context);
     return Scaffold(
       appBar: AppBar(
-        /*
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back_ios),
-          onPressed: () => {
-            Navigator.pop(context),
-          },
-        ),*/
         backgroundColor: Colors.teal[600],
-        titleSpacing: 60,
+        centerTitle: true,
         title: Text(
           'Fichas',
           style: TextStyle(
@@ -62,19 +62,23 @@ class _FichasViewState extends State<FichasView> {
       drawer: MainDrawer(),
       body: Container(
           alignment: Alignment.center,
-          color: Colors.teal[50],
+          color: Colors.white,
           child: _isLoading
               ? Center(child: CircularProgressIndicator())
               : Column(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
-                    FichasList(listFicha.listaFichas),
+                    FichasList(),
                     Container(
+                      color: Colors.grey[50],
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: <Widget>[
                           FlatButton(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(20),
+                            ),
                             child: Text(
                               'Atualizar Fichas',
                               style: TextStyle(color: Colors.white),
@@ -83,6 +87,9 @@ class _FichasViewState extends State<FichasView> {
                             onPressed: () {},
                           ),
                           FlatButton(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(20),
+                            ),
                             child: Text(
                               'Novo Exame',
                               style: TextStyle(color: Colors.white),

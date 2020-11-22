@@ -1,26 +1,19 @@
 import 'package:FisioApp/providers/teste.dart';
-import 'package:flutter/cupertino.dart';
 
-class Ficha with ChangeNotifier {
+class Ficha {
   String idServerFicha;
-  String nomeAuxiliar;
   String idServerAuxiliar;
-  //List<Atleta> nomeAtleta;
-  String nomeAtleta;
+  String nomeAuxiliar;
   String idServerAtleta;
-  List<Teste> testes;
-  bool pendente = false;
-
-  Ficha(
-      {this.idServerFicha,
-      this.idServerAtleta,
-      this.idServerAuxiliar,
-      this.nomeAuxiliar,
-      this.nomeAtleta,
-      this.testes});
-
-  void adicionarTeste(Teste testeEscolhido) {
-    testes.add(testeEscolhido);
-    notifyListeners();
-  }
+  String nomeAtleta;
+  bool pendente = true;
+  List<Teste> testes = [];
+  Ficha({
+    this.idServerFicha,
+    this.testes,
+    this.nomeAuxiliar,
+    this.nomeAtleta,
+    this.idServerAuxiliar = '',
+    this.idServerAtleta = '',
+  });
 }

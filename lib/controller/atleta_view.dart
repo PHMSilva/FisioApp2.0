@@ -1,5 +1,5 @@
-import 'package:FisioApp/controller/atletas_form.dart';
 import 'package:FisioApp/providers/atletas.dart';
+import 'package:FisioApp/utils/app_routes.dart';
 
 import 'package:FisioApp/widget/atleta_List.dart';
 
@@ -13,14 +13,6 @@ class AtletaView extends StatefulWidget {
 
 class _AtletaViewState extends State<AtletaView> {
   bool _isLoading = true;
-  void _abrirFormularioAtleta(BuildContext context) {
-    showModalBottomSheet(
-      context: context,
-      builder: (_) {
-        return AtletasForm();
-      },
-    );
-  }
 
   @override
   void initState() {
@@ -45,7 +37,7 @@ class _AtletaViewState extends State<AtletaView> {
           },
         ),
         backgroundColor: Colors.teal[600],
-        titleSpacing: 60,
+        centerTitle: true,
         title: Text(
           'Atletas',
           style: TextStyle(
@@ -55,8 +47,9 @@ class _AtletaViewState extends State<AtletaView> {
         ),
       ),
       body: Container(
+        height: MediaQuery.of(context).size.height * 0.9,
         alignment: Alignment.center,
-        color: Colors.teal[50],
+        color: Colors.white,
         child: _isLoading
             ? CircularProgressIndicator()
             : Column(
@@ -67,10 +60,12 @@ class _AtletaViewState extends State<AtletaView> {
                   FlatButton(
                     child: Icon(
                       Icons.add_circle,
-                      color: Colors.tealAccent[700],
-                      size: 90.0,
+                      color: Colors.teal[700],
+                      size: 60.0,
                     ),
-                    onPressed: () => _abrirFormularioAtleta(context),
+                    onPressed: () {
+                      Navigator.of(context).pushNamed(AppRoutes.ATLETAS_FORM);
+                    },
                   ),
                 ],
               ),

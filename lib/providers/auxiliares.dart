@@ -16,15 +16,17 @@ class Auxiliares with ChangeNotifier {
   Auxiliares(this._token, this._userId, this.listaAux);
 
   Future<void> loadAuxiliares() async {
-    final response = await http.get('$baseUrl/$_userId.json?auth=$_token');
-    Map<String, dynamic> data =
-        json.decode(response.body); // chega o json entao faz um decode dele
+    final response = await http
+        .get('https://fisioterapiaapp1.azurewebsites.net/Usuario/$_userId');
+    List<dynamic> data = json.decode(response.body);
+
     listaAux.clear();
+
     if (data != null) {
-      data.forEach((dataId, dataBody) {
+      data.forEach((dataBody) {
         listaAux.add(
           Auxiliar(
-            idServer: dataId,
+            idServer: dataBody['id'].toString(),
             nome: dataBody['nome'],
             email: dataBody['email'],
           ),
@@ -32,7 +34,6 @@ class Auxiliares with ChangeNotifier {
       });
       notifyListeners();
     }
-    //print(json.decode(response.body));
 
     return Future.value();
   }
@@ -41,7 +42,6 @@ class Auxiliares with ChangeNotifier {
     final response = await http.post(
       '$baseUrl/$_userId.json?auth=$_token',
       body: json.encode({
-        // 'id': novoAux.id,
         'nome': nomeInserido,
         'email': emailInserido,
       }),
@@ -56,8 +56,6 @@ class Auxiliares with ChangeNotifier {
     );
     notifyListeners();
   }
-
-  
 
   void atualizarSelecionado() {
     selecionado =

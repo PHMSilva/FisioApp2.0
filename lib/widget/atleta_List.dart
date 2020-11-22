@@ -8,7 +8,7 @@ class AtletaList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 300,
+      height: MediaQuery.of(context).size.height * 0.7,
       padding: EdgeInsets.only(
         right: 20,
         left: 20,
@@ -26,56 +26,119 @@ class AtletaList extends StatelessWidget {
               ],
             )
           : ListView.builder(
+              shrinkWrap: true,
               itemCount: lista.length,
               itemBuilder: (ctx, index) {
                 final atl = lista[index];
-                return Card(
-                  color: Colors.grey[100],
-                  child: Row(
-                    children: <Widget>[
-                      Container(
-                        margin: EdgeInsets.symmetric(
-                          horizontal: 15,
-                          vertical: 10,
+                return Column(
+                  children: <Widget>[
+                    Container(
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          width: 2.0,
+                          color: Colors.teal[800],
                         ),
-                        padding: EdgeInsets.all(10),
-                        child: Icon(
-                          Icons.person,
-                          size: 20.0,
-                          color: Colors.tealAccent[700],
-                        ),
+                        borderRadius: BorderRadius.circular(20),
                       ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: <Widget>[
-                          Text(
-                            ' ID : ${atl.idServer}',
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 16,
-                              color: Colors.teal[700],
-                            ),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              Text(
+                                ' Nome : ${atl.nome}',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 16,
+                                  color: Colors.teal[700],
+                                ),
+                              ),
+                              Text(
+                                ' E-mail : ${atl.email}',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 16,
+                                  color: Colors.teal[700],
+                                ),
+                              ),
+                              Text(
+                                ' Celular : ${atl.celular}',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 16,
+                                  color: Colors.teal[700],
+                                ),
+                              ),
+                            ],
                           ),
-                          Text(
-                            ' Nome : ${atl.nome}',
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 16,
-                              color: Colors.teal[700],
+                          ExpansionTile(
+                            title: Text(
+                              'Visualizar outras informações',
+                              style: TextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.teal[600],
+                              ),
                             ),
-                          ),
-                          Text(
-                            ' CPF : ${atl.cpf}',
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 16,
-                              color: Colors.teal[700],
-                            ),
-                          ),
+                            children: <Widget>[
+                              Text(
+                                'Lado Dominante : ${atl.ladoDominante}',
+                                style: TextStyle(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.teal[600],
+                                ),
+                              ),
+                              Text(
+                                'Número : ${atl.numero}',
+                                style: TextStyle(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.teal[600],
+                                ),
+                              ),
+                              Text(
+                                'Profissão : ${atl.profissao}',
+                                style: TextStyle(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.teal[600],
+                                ),
+                              ),
+                              Text(
+                                'Posição : ${atl.posicao}',
+                                style: TextStyle(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.teal[600],
+                                ),
+                              ),
+                              Text(
+                                'Peso : ${atl.peso}',
+                                style: TextStyle(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.teal[600],
+                                ),
+                              ),
+                              Text(
+                                'Altura : ${atl.altura}',
+                                style: TextStyle(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.teal[600],
+                                ),
+                              ),
+                            ],
+                          )
                         ],
                       ),
-                    ],
-                  ),
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                  ],
                 );
               },
             ),
